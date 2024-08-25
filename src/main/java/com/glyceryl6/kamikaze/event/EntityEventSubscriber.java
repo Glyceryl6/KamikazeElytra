@@ -12,7 +12,6 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ElytraItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -34,7 +33,7 @@ public class EntityEventSubscriber {
             ItemStack itemInChest = player.getItemBySlot(EquipmentSlot.CHEST);
             AttachmentType<Integer> type = KEAttachmentTypes.FALL_FLYING_TICKS.get();
             int i = itemInChest.getEnchantmentLevel(KEEnchantments.get(level, KEEnchantments.KAMIKAZE_ELYTRA));
-            if (itemInChest.getItem() instanceof ElytraItem && i > 0 && !level.isClientSide) {
+            if (itemInChest.canElytraFly(player) && i > 0 && !level.isClientSide) {
                 if (source.is(DamageTypeTags.IS_FALL) && player.getData(type) > 0 || source.is(DamageTypes.FLY_INTO_WALL)) {
                     player.stopFallFlying();
                     player.setData(KEAttachmentTypes.IS_EXPLODER, true);

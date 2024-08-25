@@ -3,12 +3,14 @@ package com.glyceryl6.kamikaze.registry;
 import com.glyceryl6.kamikaze.Main;
 import com.glyceryl6.kamikaze.enchantments.KamikazeElytraEffect;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderSet;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
 import net.minecraft.world.level.Level;
@@ -22,9 +24,11 @@ public class KEEnchantments {
     }
 
     public static void bootstrap(BootstrapContext<Enchantment> context) {
+        HolderGetter<Item> itemLookup = context.lookup(Registries.ITEM);
         register(context, KAMIKAZE_ELYTRA, Enchantment.enchantment(Enchantment.definition(
-                HolderSet.direct(), 2, 1, Enchantment.constantCost(40),
-                Enchantment.constantCost(70), 4, EquipmentSlotGroup.CHEST))
+               itemLookup.getOrThrow(ItemTags.DURABILITY_ENCHANTABLE),
+                        2, 1, Enchantment.constantCost(40),
+                        Enchantment.constantCost(70), 4, EquipmentSlotGroup.CHEST))
                 .withEffect(EnchantmentEffectComponents.TICK, new KamikazeElytraEffect(0)));
     }
 

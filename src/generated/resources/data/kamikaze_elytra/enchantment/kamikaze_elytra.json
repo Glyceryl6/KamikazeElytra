@@ -25,6 +25,6 @@
   "slots": [
     "chest"
   ],
-  "supported_items": [],
+  "supported_items": "#minecraft:enchantable/durability",
   "weight": 2
 }
